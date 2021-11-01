@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtDisplayWindow"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:gravity="end|bottom|center_vertical"
+        android:maxLength="16"
+        android:padding="16dp"
+        android:text=""
+        android:background="@drawable/round_display_window"
+        android:textSize="64sp" />
+    <TextView
+        android:id="@+id/txtRealTimeDisplayWindow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end|bottom|center_vertical"
+        android:maxLength="16"
+        android:padding="8dp"
+        android:text=""
+        android:textSize="48sp" />
+
+
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:padding="8dp"
+           android:gravity="bottom"
+           >
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="100dp"
+               android:orientation="horizontal">
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/btnSeven"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="7" />
+
+               <Button
+                   android:id="@+id/btnEight"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="8" />
+
+               <Button
+                   android:id="@+id/btnNine"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="9" />
+
+               <Button
+                   android:id="@+id/btnDivide"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onOperatorKeyPressed"
+                   android:text="/" />
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="100dp"
+               android:orientation="horizontal">
+
+               <Button
+                   android:id="@+id/btnFour"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="4" />
+
+               <Button
+                   android:id="@+id/btnFive"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="5" />
+
+               <Button
+                   android:id="@+id/btnSix"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="6" />
+
+               <Button
+                   android:id="@+id/btnSubtract"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onOperatorKeyPressed"
+                   android:text="-" />
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="100dp"
+               android:orientation="horizontal">
+
+               <Button
+                   android:id="@+id/btnOne"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="1" />
+
+               <Button
+                   android:id="@+id/btnTwo"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="2" />
+
+               <Button
+                   android:id="@+id/btnThree"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="3" />
+
+               <Button
+                   android:id="@+id/btnPlus"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onOperatorKeyPressed"
+                   android:text="+" />
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="100dp"
+               android:orientation="horizontal">
+
+               <Button
+                   android:id="@+id/btnZero"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onNumKeyPressed"
+                   android:text="0" />
+
+               <Button
+                   android:id="@+id/btnDecimal"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onDecimalKeyPressed"
+                   android:text="." />
+
+               <Button
+                   android:id="@+id/btnBackSpace"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onClear"
+                   android:text="Clear" />
+
+               <Button
+                   android:id="@+id/btnProduct"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onOperatorKeyPressed"
+                   android:text="*" />
+
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="100dp"
+               android:layout_margin="1dp"
+               android:orientation="horizontal">
+
+               <Button
+                   android:id="@+id/btnEqual"
+                   style="@style/Theme.Calculator.Button"
+                   android:onClick="onEqualKeyPressed"
+                   android:text="=" />
+
+
+           </LinearLayout>
+       </LinearLayout>
+    </LinearLayout>
