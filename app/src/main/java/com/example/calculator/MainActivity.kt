@@ -1,7 +1,5 @@
 package com.example.calculator
 
-import android.content.res.Resources
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -11,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator.const.Constant
 import com.example.calculator.databinding.ActivityMainBinding
 import com.example.calculator.utility.Utility
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private var negativeNumberSpotted: Boolean = false
@@ -23,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        binding.btnBackSpace.setOnLongClickListener {
+            onClear()
+        }
     }
 
     fun onNumKeyPressed(view: View) {
@@ -30,15 +31,26 @@ class MainActivity : AppCompatActivity() {
         binding.txtDisplayWindow.append(pressedChar)
     }
 
-    fun onClear(view: View) {
+    private fun onClear() :Boolean{
         //this is the functions where everything will be reset
         binding.txtDisplayWindow.text = ""
         binding.txtRealTimeDisplayWindow.text = ""
         operator = ""
         hasDecimalValue = false
         negativeNumberSpotted = false
+        return true
 
     }
+    fun onBackSpace(view: View){
+        var inputString:String = binding.txtDisplayWindow.text.toString()
+        if (inputString.isNullOrEmpty()) return
+        val lastChar = inputString[inputString.length-1]
+        binding.txtDisplayWindow.text = inputString.substring(0 until inputString.length-1)
+        binding.txtRealTimeDisplayWindow.text = ""
+        if (lastChar=='.') hasDecimalValue = false
+        if (lastChar=='-') negativeNumberSpotted = false
+    }
+
 
     fun onDecimalKeyPressed(view: View) {
         if (!hasDecimalValue) {

@@ -9,174 +9,195 @@
     <TextView
         android:id="@+id/txtDisplayWindow"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="200dp"
+        android:background="?attr/textBackground"
         android:gravity="end|bottom|center_vertical"
         android:maxLength="16"
-        android:padding="16dp"
+        android:padding="4dp"
         android:text=""
-        android:background="@drawable/round_display_window"
         android:textSize="64sp" />
+
     <TextView
         android:id="@+id/txtRealTimeDisplayWindow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end|bottom|center_vertical"
+        android:layout_height="80dp"
+        android:background="@drawable/round_display_window"
+        android:gravity="end|bottom"
         android:maxLength="16"
         android:padding="8dp"
         android:text=""
         android:textSize="48sp" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBracket"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="(  )" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPercentage"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="^" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPower"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="√" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDivide"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="/" />
 
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical"
-           android:padding="8dp"
-           android:gravity="bottom"
-           >
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="100dp"
-               android:orientation="horizontal">
+        </LinearLayout>
 
-               <com.google.android.material.button.MaterialButton
-                   android:id="@+id/btnSeven"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="7" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal">
 
-               <Button
-                   android:id="@+id/btnEight"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="8" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSeven"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="7" />
 
-               <Button
-                   android:id="@+id/btnNine"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="9" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEight"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="8" />
 
-               <Button
-                   android:id="@+id/btnDivide"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onOperatorKeyPressed"
-                   android:text="/" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNine"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="9" />
 
 
-           </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="100dp"
-               android:orientation="horizontal">
-
-               <Button
-                   android:id="@+id/btnFour"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="4" />
-
-               <Button
-                   android:id="@+id/btnFive"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="5" />
-
-               <Button
-                   android:id="@+id/btnSix"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="6" />
-
-               <Button
-                   android:id="@+id/btnSubtract"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onOperatorKeyPressed"
-                   android:text="-" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnProduct"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="*" />
 
 
-           </LinearLayout>
+        </LinearLayout>
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="100dp"
-               android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal">
 
-               <Button
-                   android:id="@+id/btnOne"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="1" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFour"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="4" />
 
-               <Button
-                   android:id="@+id/btnTwo"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="2" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFive"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="5" />
 
-               <Button
-                   android:id="@+id/btnThree"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="3" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSix"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="6" />
 
-               <Button
-                   android:id="@+id/btnPlus"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onOperatorKeyPressed"
-                   android:text="+" />
-
-
-           </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="100dp"
-               android:orientation="horizontal">
-
-               <Button
-                   android:id="@+id/btnZero"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onNumKeyPressed"
-                   android:text="0" />
-
-               <Button
-                   android:id="@+id/btnDecimal"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onDecimalKeyPressed"
-                   android:text="." />
-
-               <Button
-                   android:id="@+id/btnBackSpace"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onClear"
-                   android:text="Clear" />
-
-               <Button
-                   android:id="@+id/btnProduct"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onOperatorKeyPressed"
-                   android:text="*" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubtract"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="-" />
 
 
-           </LinearLayout>
+        </LinearLayout>
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="100dp"
-               android:layout_margin="1dp"
-               android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal">
 
-               <Button
-                   android:id="@+id/btnEqual"
-                   style="@style/Theme.Calculator.Button"
-                   android:onClick="onEqualKeyPressed"
-                   android:text="=" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOne"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTwo"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnThree"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="3" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPlus"
+                style="@style/ButtonStyle3"
+                android:onClick="onOperatorKeyPressed"
+                android:text="+" />
 
 
-           </LinearLayout>
-       </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnZero"
+                style="@style/ButtonStyle"
+                android:onClick="onNumKeyPressed"
+                android:text="0" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDecimal"
+                style="@style/ButtonStyle"
+                android:onClick="onDecimalKeyPressed"
+                android:text="." />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBackSpace"
+                style="@style/ButtonStyle"
+                android:onClick="onBackSpace"
+                android:text="CL" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEqual"
+               style="@style/ButtonStyle2"
+                android:onClick="onEqualKeyPressed"
+                android:text="=" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
+</LinearLayout>
