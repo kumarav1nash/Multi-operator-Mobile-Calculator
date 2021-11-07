@@ -4,11 +4,15 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calculator.const.Constant
 import com.example.calculator.databinding.ActivityMainBinding
+import com.example.calculator.utility.Calculator
 import com.example.calculator.utility.Utility
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private var negativeNumberSpotted: Boolean = false
@@ -59,6 +63,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onKeyPressed(view:View){
+        val pressedChar: String = (view as Button).text.toString()
+        binding.txtDisplayWindow.append(pressedChar)
+    }
+
     fun onOperatorKeyPressed(view: View) {
         val pressedChar: String = (view as Button).text.toString()
         val inpString = binding.txtDisplayWindow.text.toString()
@@ -101,16 +110,22 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun onEqualKeyPressed(view: View) {
+        Toast.makeText(this,binding.txtDisplayWindow.text.toString(),Toast.LENGTH_SHORT).show()
+        val result = Calculator.evaluateII(binding.txtDisplayWindow.text.toString());
 
-        val output = Utility().executeQuery(binding.txtDisplayWindow.text.toString(),operator,negativeNumberSpotted)
-        if (output == Constant.INVALID_INPUT) {
-            binding.txtRealTimeDisplayWindow.text = "Invalid format"
-            binding.txtRealTimeDisplayWindow.setTextColor(getColor(R.color.color_error))
-            return
-        } else {
-            binding.txtRealTimeDisplayWindow.text = ""
-        }
-        binding.txtDisplayWindow.text = output
+
+        val df = DecimalFormat("#.###")
+        df.roundingMode = RoundingMode.CEILING
+        val output  = df.format(result)
+
+//        if (output == Constant.INVALID_INPUT) {
+//            binding.txtRealTimeDisplayWindow.text = "Invalid format"
+//            binding.txtRealTimeDisplayWindow.setTextColor(getColor(R.color.color_error))
+//            return
+//        } else {
+//            binding.txtRealTimeDisplayWindow.text = ""
+//        }
+        binding.txtDisplayWindow.text = output.toString()
         operator = ""
         negativeNumberSpotted = output.first() == '-'
         hasDecimalValue = output.contains('.')

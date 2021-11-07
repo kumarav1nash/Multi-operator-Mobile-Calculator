@@ -10,11 +10,7 @@ private fun main(){
 
 class Utility {
 
-
-    public fun checkOperatorRequired(){
-
-    }
-
+    /*
     public fun executeQuery(inputString: String,operator:String,negativeNumberSpotted:Boolean): String {
         //This functions responsibility is to get the string and perform all the null checks
         //check if we have got two number and a operator to perform calculations and
@@ -67,5 +63,8 @@ class Utility {
 
     private fun doAdd(firstNumber: String, secondNumber: String): Double {
         return firstNumber.toDouble() + secondNumber.toDouble()
-    }
+    }*/
+
+
+
 }

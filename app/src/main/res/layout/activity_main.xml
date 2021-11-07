@@ -42,27 +42,26 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBracket"
+                android:id="@+id/btnOpenBracket"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
-                android:text="(  )" />
+                android:onClick="onKeyPressed"
+                android:text="(" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPercentage"
+                android:id="@+id/btnClosedBracket"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
-                android:text="^" />
+                android:onClick="onKeyPressed"
+                android:text=")" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPower"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
                 android:text="√" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDivide"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="/" />
 
 
@@ -76,26 +75,26 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSeven"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="7" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEight"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="8" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNine"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="9" />
 
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnProduct"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="*" />
 
 
@@ -109,25 +108,25 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnFour"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="4" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnFive"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="5" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSix"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="6" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubtract"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="-" />
 
 
@@ -141,25 +140,25 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnOne"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="1" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTwo"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="2" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnThree"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="3" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPlus"
                 style="@style/ButtonStyle3"
-                android:onClick="onOperatorKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="+" />
 
 
@@ -174,7 +173,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnZero"
                 style="@style/ButtonStyle"
-                android:onClick="onNumKeyPressed"
+                android:onClick="onKeyPressed"
                 android:text="0" />
 
             <com.google.android.material.button.MaterialButton
