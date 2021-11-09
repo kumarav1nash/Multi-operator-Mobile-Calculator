@@ -51,12 +51,10 @@
                 android:id="@+id/btnClosedBracket"
                 style="@style/ButtonStyle3"
                 android:onClick="onKeyPressed"
-                android:text=")" />
+                android:text=")"
+                />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPower"
-                style="@style/ButtonStyle3"
-                android:text="√" />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDivide"
