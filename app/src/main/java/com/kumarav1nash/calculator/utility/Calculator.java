@@ -1,38 +1,42 @@
-package com.example.calculator.utility;
+package com.kumarav1nash.calculator.utility;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+
 public class Calculator {
 
+    public static void main(String[] args) {
+        System.out.println(cleanExpr("(64)-1*2.5"));
 
-
-
+        System.out.println(evaluate("(184).7*8"));
+        System.out.println(InfixToPostFix("(184).7*8"));
+    }
 
 
     public static Double evaluate(String expr) {
         expr = cleanExpr(expr);
         Queue<String> tokenQueue = InfixToPostFix(expr);
-        if (tokenQueue.isEmpty() || tokenQueue.size()<3) return  0.0;
+        if (tokenQueue.isEmpty() || tokenQueue.size() < 3) return 0.0;
         System.out.println(tokenQueue);
         Stack<Double> resultStack = new Stack<>();
-        while (!tokenQueue.isEmpty()){
+        while (!tokenQueue.isEmpty()) {
             String token = tokenQueue.poll();
 
             //System.out.println(token);
             assert token != null;
-            if ( token.length()==1 && getPrecedence(token.charAt(0))!=-1){
+            if (token.length() == 1 && getPrecedence(token.charAt(0)) != -1) {
                 //found a token
                 Double secondOperand = resultStack.pop();
                 Double firstOperand = resultStack.pop();
                 Character sign = token.charAt(0);
                 try {
-                    resultStack.push(calculate(firstOperand,secondOperand,sign));
+                    resultStack.push(calculate(firstOperand, secondOperand, sign));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 //not an operator, means a number
                 resultStack.push(Double.parseDouble(token));
 
@@ -47,7 +51,7 @@ public class Calculator {
     }
 
 
-    private static String cleanExpr(String expr){
+    private static String cleanExpr(String expr) {
         //this function will clean the expr
         //means it will make sure to place * wherever required inPlace of ( and )
         //something more that will come in future to make sure the perfect expr required
@@ -55,20 +59,18 @@ public class Calculator {
         System.out.println(expr);
         StringBuilder stringBuilder = new StringBuilder();
         boolean lastFoundTokenIsNotOpr = false;
-        for (int i=0;i<expr.length();i++){
+        for (int i = 0; i < expr.length(); i++) {
             char ch = expr.charAt(i);
 
             //for 8( or )( condition we need to place * in between
-            if (ch=='(' && lastFoundTokenIsNotOpr){
+            if (ch == '(' && lastFoundTokenIsNotOpr) {
                 stringBuilder.append('*');
                 stringBuilder.append(ch);
-            }
-            else if (i>0 &&expr.charAt(i-1)==')' && (Character.isDigit(ch) || ch=='(')){
+            } else if (i > 0 && expr.charAt(i - 1) == ')' && (Character.isDigit(ch) || ch == '(' || ch=='.')) {
                 //for )8 or )( condition we need to place * in between
                 stringBuilder.append('*');
                 stringBuilder.append(ch);
-            }
-            else{
+            } else {
                 stringBuilder.append(ch);
             }
 
@@ -81,40 +83,42 @@ public class Calculator {
         return stringBuilder.toString();
 
     }
-    private static String appendForMinus(String expr){
+
+    private static String appendForMinus(String expr) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i=0;i<expr.length();i++){
+        for (int i = 0; i < expr.length(); i++) {
             char ch = expr.toCharArray()[i];
-            if(ch=='-'){
-                if(i==0){
+            if (ch == '-') {
+                if (i == 0) {
                     stringBuilder.append("(0-1)");
-                }else{
-                    //if there is digit before - then append +(0-1)
+                } else {
+                    //if there is digit or ) before - then append +(0-1)
                     //else append (0-1)
-                    if(Character.isDigit(expr.charAt(i-1))){
+                    if (Character.isDigit(expr.charAt(i - 1)) || expr.charAt(i - 1) == ')') {
                         stringBuilder.append("+(0-1)");
-                    }else{
+                    } else {
                         stringBuilder.append("(0-1)");
 
                     }
                 }
-            }else{
+            } else {
                 stringBuilder.append(ch);
             }
         }
         return stringBuilder.toString();
     }
-    private static Double calculate( Double firstOperand, Double secondOperand, Character sign) throws Exception {
+
+    private static Double calculate(Double firstOperand, Double secondOperand, Character sign) throws Exception {
         if (sign == '+') {
-            return firstOperand+secondOperand;
+            return firstOperand + secondOperand;
         } else if (sign == '-') {
-            return firstOperand-secondOperand;
+            return firstOperand - secondOperand;
         } else if (sign == '*') {
-            return firstOperand*secondOperand;
+            return firstOperand * secondOperand;
         } else if (sign == '/') {
-            return firstOperand/secondOperand;
-        }else{
+            return firstOperand / secondOperand;
+        } else {
             throw new Exception("Unknown Operator found");
         }
 
@@ -145,6 +149,7 @@ public class Calculator {
         12.             Pop the left bracket from the stack and discard it
         13. While there are operators on the stack, pop them to the queue
     */
+
     /**********************************************************************************************/
     private static Queue<String> InfixToPostFix(String exp) {
 
@@ -152,49 +157,49 @@ public class Calculator {
         Stack<Character> operatorStack = new Stack<>();
         Queue<String> outputQueue = new LinkedList<>();
         StringBuilder numberToken = new StringBuilder();
-        for (char ch:exp.toCharArray()){
+        for (char ch : exp.toCharArray()) {
 
             //collect number if found
-            if (Character.isDigit(ch) || ch=='.'){
+            if (Character.isDigit(ch) || ch == '.') {
                 numberToken.append(ch);
                 continue;
             }
             //if found number a number add it to queue
-            if (numberToken.length()>0){
+            if (numberToken.length() > 0) {
                 outputQueue.add(numberToken.toString());
                 numberToken = new StringBuilder();
             }
 
             //if compiler is here this means ch does not contain number or decimal
             //hence it's an operator
-            if(ch!='(' && ch!=')'){
+            if (ch != '(' && ch != ')') {
                 if (!operatorStack.isEmpty()) {
                     //look for peek operator while its precedence is greater than curr char
                     //pop it and add it to queue
                     //and push the current operator to stack
-                    while (!operatorStack.isEmpty() && operatorStack.peek() != '(' && getPrecedence(operatorStack.peek()) > getPrecedence(ch)) {
+                    while (!operatorStack.isEmpty() && operatorStack.peek() != '(' && getPrecedence(operatorStack.peek()) >= getPrecedence(ch)) {
                         outputQueue.add(operatorStack.pop() + "");
                     }
 
                 }
                 operatorStack.push(ch);
 
-            } else if (ch=='('){
+            } else if (ch == '(') {
                 operatorStack.push(ch);
-            }else {
-                while (operatorStack.peek()!='('){
-                    outputQueue.add(operatorStack.pop()+"");
+            } else {
+                while (operatorStack.peek() != '(') {
+                    outputQueue.add(operatorStack.pop() + "");
                 }
                 operatorStack.pop();
             }
         }
         //if found number a number add it to queue
-        if (numberToken.length()>0){
+        if (numberToken.length() > 0) {
             outputQueue.add(numberToken.toString());
         }
 
-        while (!operatorStack.isEmpty()){
-            outputQueue.add(operatorStack.pop()+"");
+        while (!operatorStack.isEmpty()) {
+            outputQueue.add(operatorStack.pop() + "");
         }
 
 
@@ -203,17 +208,17 @@ public class Calculator {
 
     }
 
-    private static int getPrecedence(char ch){
-        HashMap<Character,Integer> operatorPrecedenceMap = new HashMap<>();
-        operatorPrecedenceMap.put('(',16);
+    private static int getPrecedence(char ch) {
+        HashMap<Character, Integer> operatorPrecedenceMap = new HashMap<>();
+        operatorPrecedenceMap.put('(', 16);
 
-        operatorPrecedenceMap.put('*',12);
-        operatorPrecedenceMap.put('/',12);
-        operatorPrecedenceMap.put('%',12);
+        operatorPrecedenceMap.put('*', 12);
+        operatorPrecedenceMap.put('/', 12);
+        operatorPrecedenceMap.put('%', 12);
 
 
-        operatorPrecedenceMap.put('+',11);
-        operatorPrecedenceMap.put('-',11);
+        operatorPrecedenceMap.put('+', 11);
+        operatorPrecedenceMap.put('-', 11);
 
         //if unknown operator Found return null else return it's precedence value
         return (operatorPrecedenceMap.get(ch) != null) ? operatorPrecedenceMap.get(ch) : -1;

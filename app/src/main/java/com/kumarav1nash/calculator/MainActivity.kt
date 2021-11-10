@@ -1,16 +1,15 @@
-package com.example.calculator
+package com.kumarav1nash.calculator
 
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
-import com.example.calculator.databinding.ActivityMainBinding
-import com.example.calculator.utility.Calculator
-import com.example.calculator.utility.Utility
+import com.kumarav1nash.calculator.databinding.ActivityMainBinding
+import com.kumarav1nash.calculator.utility.Calculator
+import com.kumarav1nash.calculator.utility.Utility
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var operator: String = ""
     private var hasDecimalValue = false
-    private var equalPressedCounter =0
+    private var equalPressedCounter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -29,17 +28,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnBackSpace.setOnLongClickListener {
             onClear()
         }
+
     }
 
-    fun onNumKeyPressed(view: View) {
-        val pressedChar: String = (view as Button).text.toString()
-        binding.txtDisplayWindow.append(pressedChar)
-    }
 
     private fun onClear(): Boolean {
         //this is the functions where everything will be reset
         binding.txtDisplayWindow.text = ""
-        binding.txtRealTimeDisplayWindow.text = ""
+        binding.txtRealTimeDisplayWindow.text = "0"
         operator = ""
         hasDecimalValue = false
         negativeNumberSpotted = false
@@ -52,9 +48,9 @@ class MainActivity : AppCompatActivity() {
         var inputString: String = binding.txtDisplayWindow.text.toString()
         if (inputString.isNullOrEmpty()) return
         val lastChar = inputString[inputString.length - 1]
-        binding.txtDisplayWindow.text = inputString.substring(0 until inputString.length - 1)
+        binding.txtDisplayWindow.text = inputString.subSequence(0 until inputString.length - 1).toString()
         binding.txtRealTimeDisplayWindow.text = ""
-        equalPressedCounter =0
+        equalPressedCounter = 0
         if (lastChar == '.') hasDecimalValue = false
         if (lastChar == '-') negativeNumberSpotted = false
     }
@@ -72,42 +68,52 @@ class MainActivity : AppCompatActivity() {
 
         //check whether decimal should active or not
         if (!Character.isDigit(pressedChar[0])) {
-            hasDecimalValue = false;
+            hasDecimalValue = false
         }
         //check if the string have valid parenthesis if so we will not append
         if (pressedChar == ")" && Utility().validateParenthesis(binding.txtDisplayWindow.text.toString()).isValid) return
 
+
+
         var inputString = binding.txtDisplayWindow.text.toString()
 
-        //check if input string is empty and a operator is pressed
-        if (inputString.isEmpty()){
-            if (!pressedChar.isDigitsOnly() && (pressedChar!="(" && pressedChar!=")")){
 
-                if (pressedChar!="-"){
+        //check if input string is empty and a operator is pressed ie not - it will return
+        if (inputString.isEmpty()) {
+            if (!pressedChar.isDigitsOnly() && (pressedChar != "(" && pressedChar != ")")) {
+
+                if (pressedChar != "-") {
                     return
                 }
             }
         }
+
 
         //this will check if last char is operator ie not digit not (,) and curr is also operator
         //then we have two condition
         //if curr is - then check if last one is - if so do not append
         //if curr char
 
-        if (inputString.isNotEmpty() && !pressedChar.isDigitsOnly() && (pressedChar!="(" && pressedChar!=")")){
-            val lastChar: Char = inputString[inputString.length-1]
-            if(pressedChar=="-"){
+        if (inputString.isNotEmpty() && !pressedChar.isDigitsOnly() && (pressedChar != "(" && pressedChar != ")")) {
+            val lastChar: Char = inputString[inputString.length - 1]
+            if (pressedChar == "-") {
                 //check if last is also minus if so return
-                if (lastChar=='-'){
+                if (lastChar == '-') {
                     return
                 }
-            }else{
-                if (!lastChar.isDigit()){
+            } else {
+                if (!lastChar.isDigit() && lastChar != ')') {
                     return
                 }
             }
         }
-        equalPressedCounter =0
+        if (inputString.isNotEmpty()){
+            val lastChar = inputString[inputString.length - 1]
+            //check if last char is digit only then he can add ) bracket
+            //it will also handle ()
+            if(pressedChar==")" && !lastChar.isDigit() && lastChar!=')') return
+        }
+        equalPressedCounter = 0
         binding.txtDisplayWindow.append(pressedChar)
     }
 
@@ -116,16 +122,26 @@ class MainActivity : AppCompatActivity() {
         //Toast.makeText(this, binding.txtDisplayWindow.text.toString(), Toast.LENGTH_SHORT).show()
         var inputString = binding.txtDisplayWindow.text.toString()
 
+        if (inputString.isNotEmpty()){
+            val lastChar = inputString[inputString.length - 1]
+
+            if(!lastChar.isDigit() && lastChar!='.'){
+                //this means last char can be ( or ) or operator
+                inputString = inputString.subSequence(0 until inputString.length-1) as String
+
+            }
+        }
+
         //first check if expr has valid parenthesis if not not make it valid
-        if (!Utility().validateParenthesis(inputString).isValid){
+        if (!Utility().validateParenthesis(inputString).isValid) {
             val count = Utility().validateParenthesis(inputString).count
-            inputString+="1";
-            for (i in 1..count){
-                inputString+=")"
+            for (i in 1..count) {
+                inputString += ")"
             }
 
         }
-        val result = Calculator.evaluate(inputString);
+        equalPressedCounter++
+        val result = Calculator.evaluate(inputString)
 
 
         val df = DecimalFormat("#.##########")
@@ -136,7 +152,10 @@ class MainActivity : AppCompatActivity() {
         operator = ""
         negativeNumberSpotted = output.first() == '-'
         hasDecimalValue = output.contains('.')
-
+        if (equalPressedCounter > 1) {
+            binding.txtRealTimeDisplayWindow.text = ""
+            binding.txtDisplayWindow.text = output.toString()
+        }
 
     }
 
