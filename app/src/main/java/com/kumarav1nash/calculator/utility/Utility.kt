@@ -10,7 +10,8 @@ class Utility {
 
     fun validateParenthesis(expr: String): Pair {
 
-        //this program will return if the expr has valid parenthesis or not
+        //this program will return a pair of how many closing bracket required and
+        //whether this string has valid parenthesis or not
         val par: Stack<Char> = Stack()
         for (ch: Char in expr.toCharArray()) {
             if (ch == '(') {

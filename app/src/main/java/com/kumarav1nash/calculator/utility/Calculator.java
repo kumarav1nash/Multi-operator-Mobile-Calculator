@@ -9,7 +9,6 @@ public class Calculator {
 
     public static void main(String[] args) {
         System.out.println(cleanExpr("(64)-1*2.5"));
-
         System.out.println(evaluate("(184).7*8"));
         System.out.println(InfixToPostFix("(184).7*8"));
     }
@@ -54,9 +53,9 @@ public class Calculator {
     private static String cleanExpr(String expr) {
         //this function will clean the expr
         //means it will make sure to place * wherever required inPlace of ( and )
-        //something more that will come in future to make sure the perfect expr required
+        //something more that will come in future to make sure the output expr is valid for the algorithm
         expr = appendForMinus(expr);
-        System.out.println(expr);
+        //System.out.println(expr);
         StringBuilder stringBuilder = new StringBuilder();
         boolean lastFoundTokenIsNotOpr = false;
         for (int i = 0; i < expr.length(); i++) {
@@ -66,7 +65,7 @@ public class Calculator {
             if (ch == '(' && lastFoundTokenIsNotOpr) {
                 stringBuilder.append('*');
                 stringBuilder.append(ch);
-            } else if (i > 0 && expr.charAt(i - 1) == ')' && (Character.isDigit(ch) || ch == '(' || ch=='.')) {
+            } else if (i > 0 && expr.charAt(i - 1) == ')' && (Character.isDigit(ch) || ch == '(' || ch == '.')) {
                 //for )8 or )( condition we need to place * in between
                 stringBuilder.append('*');
                 stringBuilder.append(ch);
@@ -164,14 +163,14 @@ public class Calculator {
                 numberToken.append(ch);
                 continue;
             }
-            //if found number a number add it to queue
+            //if found a number add it to queue
             if (numberToken.length() > 0) {
                 outputQueue.add(numberToken.toString());
                 numberToken = new StringBuilder();
             }
 
             //if compiler is here this means ch does not contain number or decimal
-            //hence it's an operator
+            //hence it's an operator, ( or )
             if (ch != '(' && ch != ')') {
                 if (!operatorStack.isEmpty()) {
                     //look for peek operator while its precedence is greater than curr char
@@ -193,7 +192,7 @@ public class Calculator {
                 operatorStack.pop();
             }
         }
-        //if found number a number add it to queue
+        //if found a number add it to queue
         if (numberToken.length() > 0) {
             outputQueue.add(numberToken.toString());
         }
@@ -203,7 +202,7 @@ public class Calculator {
         }
 
 
-        System.out.println(operatorStack.toString());
+        //System.out.println(operatorStack.toString());
         return outputQueue;
 
     }

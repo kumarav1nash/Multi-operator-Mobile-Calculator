@@ -45,10 +45,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onBackSpace(view: View) {
+        //this function deletes one char from input
+        //and also track if the deleted char is decimal or negative number
         var inputString: String = binding.txtDisplayWindow.text.toString()
         if (inputString.isNullOrEmpty()) return
         val lastChar = inputString[inputString.length - 1]
-        binding.txtDisplayWindow.text = inputString.subSequence(0 until inputString.length - 1).toString()
+        binding.txtDisplayWindow.text =
+            inputString.subSequence(0 until inputString.length - 1).toString()
         binding.txtRealTimeDisplayWindow.text = ""
         equalPressedCounter = 0
         if (lastChar == '.') hasDecimalValue = false
@@ -57,6 +60,8 @@ class MainActivity : AppCompatActivity() {
 
 
     fun onDecimalKeyPressed(view: View) {
+        //this function checks whether it should append decimal or not based on
+        //string expr state
         if (!hasDecimalValue) {
             hasDecimalValue = true
             binding.txtDisplayWindow.append((view as Button).text)
@@ -66,7 +71,8 @@ class MainActivity : AppCompatActivity() {
     fun onKeyPressed(view: View) {
         val pressedChar: String = (view as Button).text.toString()
 
-        //check whether decimal should active or not
+        //check whether a operator is pressed if so
+        //set the decimal key as active
         if (!Character.isDigit(pressedChar[0])) {
             hasDecimalValue = false
         }
@@ -74,11 +80,8 @@ class MainActivity : AppCompatActivity() {
         if (pressedChar == ")" && Utility().validateParenthesis(binding.txtDisplayWindow.text.toString()).isValid) return
 
 
-
-        var inputString = binding.txtDisplayWindow.text.toString()
-
-
-        //check if input string is empty and a operator is pressed ie not - it will return
+        val inputString = binding.txtDisplayWindow.text.toString()
+        //check if input string is empty and a operator is pressed that is not '-' it will return
         if (inputString.isEmpty()) {
             if (!pressedChar.isDigitsOnly() && (pressedChar != "(" && pressedChar != ")")) {
 
@@ -92,8 +95,7 @@ class MainActivity : AppCompatActivity() {
         //this will check if last char is operator ie not digit not (,) and curr is also operator
         //then we have two condition
         //if curr is - then check if last one is - if so do not append
-        //if curr char
-
+        //if curr is operator and last is - then return
         if (inputString.isNotEmpty() && !pressedChar.isDigitsOnly() && (pressedChar != "(" && pressedChar != ")")) {
             val lastChar: Char = inputString[inputString.length - 1]
             if (pressedChar == "-") {
@@ -102,16 +104,16 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
             } else {
-                if (!lastChar.isDigit() && lastChar != ')') {
+                if (!lastChar.isDigit() && lastChar != ')') { //something like (3-*2)
                     return
                 }
             }
         }
-        if (inputString.isNotEmpty()){
+        if (inputString.isNotEmpty()) {
             val lastChar = inputString[inputString.length - 1]
             //check if last char is digit only then he can add ) bracket
-            //it will also handle ()
-            if(pressedChar==")" && !lastChar.isDigit() && lastChar!=')') return
+            //it will also handle () or (2+) <= not allowed
+            if (pressedChar == ")" && !lastChar.isDigit() && lastChar != ')') return
         }
         equalPressedCounter = 0
         binding.txtDisplayWindow.append(pressedChar)
@@ -119,15 +121,14 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun onEqualKeyPressed(view: View) {
-        //Toast.makeText(this, binding.txtDisplayWindow.text.toString(), Toast.LENGTH_SHORT).show()
         var inputString = binding.txtDisplayWindow.text.toString()
 
-        if (inputString.isNotEmpty()){
+        if (inputString.isNotEmpty()) {
             val lastChar = inputString[inputString.length - 1]
 
-            if(!lastChar.isDigit() && lastChar!='.'){
+            if (!lastChar.isDigit() && lastChar != '.') {
                 //this means last char can be ( or ) or operator
-                inputString = inputString.subSequence(0 until inputString.length-1) as String
+                inputString = inputString.subSequence(0 until inputString.length - 1) as String
 
             }
         }
