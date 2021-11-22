@@ -7,23 +7,15 @@ import java.util.Stack;
 
 public class Calculator {
 
-    public static void main(String[] args) {
-        System.out.println(cleanExpr("(64)-1*2.5"));
-        System.out.println(evaluate("(184).7*8"));
-        System.out.println(InfixToPostFix("(184).7*8"));
-    }
-
 
     public static Double evaluate(String expr) {
         expr = cleanExpr(expr);
         Queue<String> tokenQueue = InfixToPostFix(expr);
         if (tokenQueue.isEmpty() || tokenQueue.size() < 3) return 0.0;
-        System.out.println(tokenQueue);
         Stack<Double> resultStack = new Stack<>();
         while (!tokenQueue.isEmpty()) {
             String token = tokenQueue.poll();
 
-            //System.out.println(token);
             assert token != null;
             if (token.length() == 1 && getPrecedence(token.charAt(0)) != -1) {
                 //found a token
@@ -45,17 +37,15 @@ public class Calculator {
         }
 
         //if done calculating there will be exactly one item in stack
-        //System.out.println(resultStack.toString());
         return resultStack.peek();
     }
 
 
     private static String cleanExpr(String expr) {
-        //this function will clean the expr
+        //this function will clean the expr make it appropriate for handling as infix expression
         //means it will make sure to place * wherever required inPlace of ( and )
-        //something more that will come in future to make sure the output expr is valid for the algorithm
-        expr = appendForMinus(expr);
-        //System.out.println(expr);
+        //and also it will take care to handle unary operator like '-' sign
+        expr = handleUnaryMinusSign(expr);
         StringBuilder stringBuilder = new StringBuilder();
         boolean lastFoundTokenIsNotOpr = false;
         for (int i = 0; i < expr.length(); i++) {
@@ -83,7 +73,7 @@ public class Calculator {
 
     }
 
-    private static String appendForMinus(String expr) {
+    private static String handleUnaryMinusSign(String expr) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < expr.length(); i++) {
@@ -124,8 +114,7 @@ public class Calculator {
     }
 
     //Implementing Dijkstra's Shunting Yard Algorithm
-
-    /*********************************************************************************************/
+    /*******************************************************************************************/
     /*
     To build the algorithm, we will need
         1 stack for operations
@@ -152,7 +141,7 @@ public class Calculator {
     /**********************************************************************************************/
     private static Queue<String> InfixToPostFix(String exp) {
 
-
+        //This function will convert input infix string expression queue containing postfix token in order
         Stack<Character> operatorStack = new Stack<>();
         Queue<String> outputQueue = new LinkedList<>();
         StringBuilder numberToken = new StringBuilder();
@@ -208,6 +197,7 @@ public class Calculator {
     }
 
     private static int getPrecedence(char ch) {
+        //this function simply return the precedence of a operator
         HashMap<Character, Integer> operatorPrecedenceMap = new HashMap<>();
         operatorPrecedenceMap.put('(', 16);
 
